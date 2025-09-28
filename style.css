@@ -1,0 +1,415 @@
+/* General Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fdf5e6; /* Creamy Off-White Background */
+}
+
+/* ------------------------------------------------------------------ */
+/* HEADER AND NAVIGATION STYLES */
+/* ------------------------------------------------------------------ */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.top-bar {
+    background: #a91b2c; /* Deep Red/Maroon */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white; 
+}
+
+.logo-main {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 3px;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.logo-icon {
+    font-size: 1.5rem; 
+    margin-left: 5px; 
+    line-height: 1; 
+}
+
+.tagline {
+    font-size: 0.8rem;
+    font-style: italic;
+    font-weight: normal;
+    display: block;
+}
+
+.main-nav {
+    background: #ffb300; /* Amber Yellow */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.main-nav ul li {
+    margin: 0 15px;
+}
+
+.main-nav ul li a {
+    color: #a91b2c; /* Deep Red/Maroon for link text */
+    text-decoration: none;
+    padding: 5px 10px;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+.main-nav ul li a:hover {
+    background: #c0392b; 
+    color: white;
+    border-radius: 5px;
+}
+
+.main-nav ul li a.active {
+    background: #a91b2c; 
+    color: white !important; 
+    border-radius: 5px;
+}
+.main-nav ul li a.active:hover {
+    background: #c0392b; 
+}
+
+
+/* ------------------------------------------------------------------ */
+/* HERO SECTION (HOME PAGE IMAGE) */
+/* ------------------------------------------------------------------ */
+.hero {
+    background: url('mysore-night.jpg') no-repeat center center/cover;
+    height: 80vh; 
+    display: block; 
+    position: relative;
+    box-shadow: none; 
+}
+
+
+/* ------------------------------------------------------------------ */
+/* HISTORICAL DESTINATIONS SECTION (PLACES) */
+/* ------------------------------------------------------------------ */
+.historical-destinations {
+    padding: 60px 20px;
+    text-align: center;
+    background: #fdf5e6; 
+}
+
+.historical-destinations h2 {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    padding: 10px;
+    color: #485d8a; /* Dark Slate Blue - Unique color for Places main header */
+    font-size: 2.5rem; 
+    font-weight: 800; 
+}
+
+.destination-list {
+    max-width: 1200px; 
+    margin: 0 auto;
+    /* CSS Grid for 2-column layout (2x2 grid for 4 cards) */
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 30px; 
+    justify-content: center;
+}
+
+.destination-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    overflow: hidden;
+    grid-column: span 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.destination-card img {
+    max-width: 90%; 
+    height: auto; 
+    display: block; 
+    margin: 20px auto 10px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+.card-content {
+    padding: 10px 25px 20px;
+    flex-grow: 1; 
+    width: 100%; 
+}
+
+.card-content h3 {
+    color: #485d8a; /* Dark Slate Blue - Unique color for Places sub-headers */
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.card-content p {
+    font-size: 1rem;
+    color: #555;
+}
+
+
+/* ------------------------------------------------------------------ */
+/* FOOD STAPLES SECTION */
+/* ------------------------------------------------------------------ */
+.food-staples {
+    padding: 60px 20px;
+    text-align: center;
+    background: #fff8e1; /* Pale yellow background */
+}
+
+/* Main food section header (h2) is Warm Chocolate Brown */
+.food-staples h2 {
+    max-width: 900px;
+    margin: 0 auto 20px;
+    color: #795548; /* Warm Chocolate Brown - Unique color for this section's main header */
+    font-size: 2.5rem; 
+    font-weight: 800; 
+    text-align: center;
+}
+
+.food-staples .intro-text {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.food-list {
+    max-width: 900px; 
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px; 
+}
+
+/* Food sub-heading header is Warm Chocolate Brown */
+.food-sub-heading {
+    text-align: center;
+    color: #795548 !important; /* Warm Chocolate Brown */
+    font-size: 2rem !important;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 10px !important;
+}
+
+/* Food Item Layout (for image integration) */
+.food-item {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    text-align: left;
+}
+
+.food-item .food-text {
+    flex-grow: 1; 
+}
+
+/* Individual item headers (h3) remain Deep Red/Maroon for contrast */
+.food-item h3 {
+    color: #a91b2c; 
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.food-item p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Image styling for food items */
+.food-item .food-image {
+    max-width: 30%; 
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+    min-width: 150px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+/* ------------------------------------------------------------------ */
+/* CULTURAL HERITAGE SECTION */
+/* ------------------------------------------------------------------ */
+.cultural-heritage {
+    padding: 60px 20px;
+    text-align: center;
+    background: #fdf5e6; /* Creamy Off-White Background */
+}
+
+/* Culture section main header (h2) is Deep Teal */
+.cultural-heritage h2 {
+    max-width: 900px;
+    margin: 0 auto 20px;
+    color: #008080; /* Deep Teal - Unique color for this section's main header */
+    font-size: 2.5rem; 
+    font-weight: 800; 
+    text-align: center;
+}
+
+.cultural-heritage .intro-text {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.culture-list {
+    max-width: 900px; 
+    margin: 0 auto;
+    display: flex; 
+    flex-direction: column;
+    gap: 25px; 
+}
+
+.culture-item {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    text-align: left;
+}
+
+.culture-item .culture-text {
+    flex-grow: 1;
+}
+
+.culture-item h3 {
+    color: #ffb300; /* Amber/Yellow for Culture sub-headers */
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.culture-item p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.culture-item .culture-image {
+    max-width: 30%; 
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+    min-width: 150px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+
+/* ------------------------------------------------------------------ */
+/* MEDIA QUERIES (RESPONSIVENESS) */
+/* ------------------------------------------------------------------ */
+@media (max-width: 768px) {
+    .destination-list {
+        grid-template-columns: 1fr; 
+    }
+    
+    /* Food and Culture items stacking on mobile */
+    .food-item, .culture-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    .food-item .food-image, .culture-item .culture-image {
+        max-width: 80%;
+        order: -1; 
+        margin-bottom: 15px;
+        min-width: 100px; 
+    }
+    .food-item h3, .culture-item h3 {
+        font-size: 1.5rem;
+    }
+    
+    .culture-list {
+        gap: 25px;
+    }
+}
+
+
+/* ------------------------------------------------------------------ */
+/* CONTACT AND FOOTER */
+/* ------------------------------------------------------------------ */
+
+.contact {
+    background: #a91b2c; 
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+.btn {
+    display: inline-block;
+    background: #ffb300; 
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #ff8f00; 
+}
+
+.contact .btn {
+    background: #ffb300; 
+    color: #333;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+}
