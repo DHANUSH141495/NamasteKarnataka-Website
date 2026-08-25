@@ -1,506 +1,679 @@
-// Function from original script.js
-function showMessage() {
-    alert("Welcome to Namaste Karnataka! Explore its incredible places, food, and culture.");
+// ==========================================================================
+// NAMASTE KARNATAKA - SCRIPT & DATA ENGINE
+// Dynamic Dataset: 47+ Places, 30+ Regional Delicacies, 25+ Cultural Treasures
+// Features: Instant Search, Category Filter Pills, Modal Deep Dives, Local Storage Bookmarks
+// ==========================================================================
+
+// Helper: Format Markdown bold text (**text**) to HTML <strong>
+function formatText(text) {
+    if (!text) return "";
+    return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 }
 
-// =========================================================
-// 1. PLACE DATA: Expanded list of Karnataka Destinations (47 places)
-//    To add a new place, just add a new object to this list!
-//    NOTE: You must ensure an image exists for the path specified (e.g., place-images/mysore-palace.jpg)
-// =========================================================
+// Fallback images for destinations, foods, and culture
+const FALLBACKS = {
+    places: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80",
+    foods: "https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=800&auto=format&fit=crop&q=80",
+    culture: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=800&auto=format&fit=crop&q=80"
+};
+
+// ==========================================================================
+// 1. PLACES DATASET (47+ Destinations)
+// ==========================================================================
 const karnatakaPlaces = [
-    // --- BENGALURU & CENTRAL KARNATAKA (South East) ---
     {
+        id: "p1",
         name: "Vidhana Soudha",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/55/Vidhana_Soudha_Front_View.jpg",
+        category: "bengaluru",
+        region: "Bengaluru (South East)",
+        bestTime: "Year-round (Evenings for illumination)",
+        image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=800&auto=format&fit=crop&q=80",
         alt: "Vidhana Soudha, Bengaluru",
-        description: "The seat of the state legislature of Karnataka in **Bengaluru**, built in the Dravidian style. A key symbol of the **Silicon City**."
+        description: "The seat of the state legislature of Karnataka in **Bengaluru**, constructed in the Neo-Dravidian style. A key symbol of India's Silicon Capital.",
+        highlights: "Neo-Dravidian architecture, Sunday night lighting, Dr. B. R. Ambedkar statue",
+        mapQuery: "Vidhana+Soudha+Bengaluru"
     },
     {
-        name: "Lalbagh",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Lalbagh_Glasshouse.jpg",
-        alt: "Lalbagh Botanical Garden, Bengaluru",
-        description: "An iconic green space that defines the 'Garden City' identity of **Bengaluru**. Lalbagh hosts an annual flower show."
+        id: "p2",
+        name: "Lalbagh Botanical Garden",
+        category: "bengaluru",
+        region: "Bengaluru (South East)",
+        bestTime: "October to March (Flower Show in Jan & Aug)",
+        image: "https://images.unsplash.com/photo-1588714477688-cf28a50e94f7?w=800&auto=format&fit=crop&q=80",
+        alt: "Lalbagh Glasshouse, Bengaluru",
+        description: "An iconic 240-acre botanical garden commissioned by Hyder Ali. Famous for the London Crystal Palace-inspired **Glass House** and biannual flower shows.",
+        highlights: "Glass House, 3000-million-year-old Lalbagh Rock, 1000+ exotic flora species",
+        mapQuery: "Lalbagh+Botanical+Garden+Bengaluru"
     },
     {
+        id: "p3",
         name: "Cubbon Park",
-        image: "https://upload.wikimedia.org/wikipedia/commons/8/82/Cubbon_Park_Bangalore.jpg",
-        alt: "Cubbon Park, Bengaluru",
-        description: "A central park in Bengaluru, known for its greenery and historical significance."
+        category: "bengaluru",
+        region: "Bengaluru (South East)",
+        bestTime: "Year-round (Morning/Evening walks)",
+        image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=800&auto=format&fit=crop&q=80",
+        alt: "Cubbon Park Greenery",
+        description: "The 'Lungs of Bengaluru', sprawling over 300 acres in the heart of the city, flanked by the State Central Library and Karnataka High Court (Attara Kacheri).",
+        highlights: "Attara Kacheri, Bamboo Groves, Sunday Dog Park, Heritage Bandstand",
+        mapQuery: "Cubbon+Park+Bengaluru"
     },
     {
-        name: "Mysore Palace",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Mysore_Palace.jpg",
-        alt: "Mysore Palace at night",
-        description: "An Indo-Saracenic architectural masterpiece and the official residence of the Wadiyar dynasty. Famous for its brilliant lighting during **Mysore Dasara** festival. (Region: South Karnataka, Mysore)"
+        id: "p4",
+        name: "Mysore Palace (Amba Vilas)",
+        category: "heritage",
+        region: "South Karnataka (Mysuru)",
+        bestTime: "September to March (Dasara Festival)",
+        image: "https://images.unsplash.com/photo-1600100397608-f010f421a100?w=800&auto=format&fit=crop&q=80",
+        alt: "Mysore Palace illuminated at night",
+        description: "An Indo-Saracenic royal masterpiece and official seat of the Wadiyar dynasty. World-renowned for its golden throne and **100,000 bulbs illumination** during Mysore Dasara.",
+        highlights: "Golden Throne, Durbar Hall, Kalyana Mantapa stained glass, Dasara Jumboo Savari",
+        mapQuery: "Mysore+Palace+Mysuru"
     },
     {
+        id: "p5",
         name: "Brindavan Gardens",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Brindavan_Gardens.jpg",
-        alt: "Musical fountain show at Brindavan Gardens",
-        description: "Famous ornamental gardens located adjacent to the Krishnarajasagara (KRS) Dam. Known for its spectacular **musical fountain** show. (Region: South Karnataka, Mandya)"
+        category: "nature",
+        region: "South Karnataka (Mandya)",
+        bestTime: "October to March (Evening 6 PM - 8 PM)",
+        image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=800&auto=format&fit=crop&q=80",
+        alt: "Brindavan Gardens Musical Fountain",
+        description: "Terraced ornamental gardens laid out across the Krishna Raja Sagara (KRS) dam reservoir. Famous for synchronized **musical fountains** and lush topiaries.",
+        highlights: "KRS Dam view, illuminated musical fountain show, boating lake",
+        mapQuery: "Brindavan+Gardens+KRS+Dam"
     },
     {
-        name: "Chitradurga Fort",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Chitradurga_Fort.jpg",
-        alt: "Chitradurga Fort walls",
-        description: "A massive fortification ('Stone Fort') with seven concentric walls and a fascinating history of the Nayakas. (Region: Central Karnataka, Chitradurga)"
+        id: "p6",
+        name: "Hampi (Vijayanagara Ruins)",
+        category: "heritage",
+        region: "North Karnataka (Vijayanagara)",
+        bestTime: "October to February (Hampi Utsav)",
+        image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80",
+        alt: "Stone Chariot at Hampi",
+        description: "A **UNESCO World Heritage Site** comprising the grand ruins of the 14th-century Vijayanagara Empire. Home to the iconic **Stone Chariot**, Virupaksha Temple, and musical pillars.",
+        highlights: "Stone Chariot, Virupaksha Temple, Lotus Mahal, Tungabhadra River Coracle rides",
+        mapQuery: "Hampi+Stone+Chariot"
     },
     {
-        name: "Nandi Hills",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Nandi_Hills.jpg",
-        alt: "Sunrise view from Nandi Hills",
-        description: "A popular ancient hill fortress and weekend getaway near **Bengaluru**, famous for stunning sunrise views and Tipu Sultanâ€™s drop. (Region: South Karnataka, Chikkaballapur)"
+        id: "p7",
+        name: "Coorg (Madikeri & Abbey Falls)",
+        category: "nature",
+        region: "Malnad Karnataka (Kodagu)",
+        bestTime: "October to April (Monsoon for lush views)",
+        image: "https://images.unsplash.com/photo-1592635196078-9fdc757f27f4?w=800&auto=format&fit=crop&q=80",
+        alt: "Coorg Mist and Coffee Estates",
+        description: "The 'Scotland of India', perched in the Western Ghats. Celebrated for aromatic **coffee & spice plantations**, misty valleys, Abbey Falls, and unique Kodava martial culture.",
+        highlights: "Raja's Seat sunset, Abbey & Iruppu Falls, Dubare Elephant Camp, Talakaveri",
+        mapQuery: "Madikeri+Coorg+Karnataka"
     },
     {
-        name: "Shravanabelagola Gomateshwara Statue",
-        image: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Shravanabelagola_Gomateshwara.jpg",
-        alt: "Gomateshwara monolithic statue",
-        description: "A historic Jain pilgrimage center, home to the monolithic 57-foot tall statue of Lord **Gomateshwara (Bahubali)**. (Region: South Karnataka, Hassan)"
+        id: "p8",
+        name: "Gokarna (Om Beach & Mahabaleshwara)",
+        category: "coastal",
+        region: "Coastal Karnataka (Uttara Kannada)",
+        bestTime: "October to March",
+        image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&auto=format&fit=crop&q=80",
+        alt: "Om Beach Gokarna Coastline",
+        description: "A serene coastal sanctuary blending sacred Shaivite pilgrimage (**Atmalinga at Mahabaleshwara Temple**) with pristine shores including **Om Beach**, Kudle, and Half Moon Beach.",
+        highlights: "Om-shaped coastline, Beach trekking, Mahabaleshwara Temple, Yana Rocks",
+        mapQuery: "Om+Beach+Gokarna"
     },
     {
-        name: "Belur & Halebidu Hoysala Temples",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Hoysaleswara_Temple_Belur.jpg",
-        alt: "Hoysaleswara Temple carvings",
-        description: "Twin temple towns featuring the magnificent **Hoysaleswara Temple**, renowned for their extremely intricate stone sculptures and detailed friezes. (Region: South Karnataka, Hassan)"
+        id: "p9",
+        name: "Jog Falls (Gerosoppa)",
+        category: "nature",
+        region: "Malnad Karnataka (Shivamogga)",
+        bestTime: "July to November (Peak Monsoon)",
+        image: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=800&auto=format&fit=crop&q=80",
+        alt: "Jog Falls in full flow",
+        description: "India's second-highest plunge waterfall (253 meters), created by the Sharavathi River dropping in four distinct cascades: **Raja, Roarer, Rocket, and Rani**.",
+        highlights: "253m plunge, Watkins Platform viewpoint, Sharavathi Valley viewpoint",
+        mapQuery: "Jog+Falls+Shivamogga"
     },
     {
-        name: "Somanathapura (Keshava Temple)",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Keshava_Temple_Somanathapura.jpg",
-        alt: "Keshava Temple Somanathapura",
-        description: "The stunning Keshava Temple, one of the finest examples of **Hoysala architecture** with star-shaped carvings. (Region: South Karnataka, Mysore)"
+        id: "p10",
+        name: "Murudeshwara Temple & Beach",
+        category: "coastal",
+        region: "Coastal Karnataka (Uttara Kannada)",
+        bestTime: "October to March",
+        image: "https://images.unsplash.com/photo-1627894006066-b45788a38b1d?w=800&auto=format&fit=crop&q=80",
+        alt: "Murudeshwara Shiva Statue by the sea",
+        description: "Home to the world's second-tallest **Lord Shiva Statue (123 ft)** and the towering 20-storied **Raja Gopura**, overlooking the turquoise waters of the Arabian Sea.",
+        highlights: "123ft Shiva Statue, Raja Gopura elevator view, Netrani Island scuba diving",
+        mapQuery: "Murudeshwara+Temple"
     },
     {
-        name: "Bandipur National Park",
-        image: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Bandipur_National_Park.jpg",
-        alt: "Tigers in Bandipur National Park",
-        description: "One of India's most famous tiger reserves, known for its significant population of tigers, elephants, and deer. (Region: South Karnataka, Chamarajanagar)"
+        id: "p11",
+        name: "Belur & Halebidu (Hoysala Temples)",
+        category: "heritage",
+        region: "South Karnataka (Hassan)",
+        bestTime: "October to March",
+        image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80",
+        alt: "Intricate Stone Carvings at Belur Chennakeshava Temple",
+        description: "**UNESCO World Heritage Sacred Ensembles** of the Hoysalas. World-renowned for jaw-dropping soapstone filigree carvings, star-shaped plinths, and celestial Madanika dancers.",
+        highlights: "Chennakeshava Temple Belur, Hoysaleswara Temple Halebidu, Shantala Devi sculptures",
+        mapQuery: "Belur+Chennakeshava+Temple"
     },
     {
-        name: "Nagarhole National Park (Kabini)",
-        image: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Nagarhole_National_Park.jpg",
-        alt: "Kabini River Safari",
-        description: "Famous for its rich wildlife, lush forests, and serene boat safaris on the Kabini River backwaters, home to the Black Panther. (Region: South Karnataka, Mysore/Kodagu)"
+        id: "p12",
+        name: "Badami Cave Temples & Agastya Lake",
+        category: "heritage",
+        region: "North Karnataka (Bagalkot)",
+        bestTime: "October to February",
+        image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80",
+        alt: "Badami Rock Cut Caves overlooking lake",
+        description: "The 6th-century rock-cut cave capital of the Early Chalukyas, carved out of red sandstone cliffs surrounding the sacred **Agastya Lake** and Bhuthanatha Temples.",
+        highlights: "18-armed dancing Nataraja cave 1, Vishnu Trivikrama cave 3, Bhoothanatha Temple",
+        mapQuery: "Badami+Cave+Temples"
     },
     {
-        name: "Shivanasamudra Falls",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Shivanasamudra_Falls.jpg",
-        alt: "Shivanasamudra Falls during monsoon",
-        description: "A segmented waterfall on the Kaveri River, split into Gaganachukki and Bharachukki, beautiful during monsoon. (Region: South Karnataka, Mandya)"
+        id: "p13",
+        name: "Gol Gumbaz (Vijayapura)",
+        category: "heritage",
+        region: "North Karnataka (Vijayapura / Bijapur)",
+        bestTime: "October to February",
+        image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80",
+        alt: "Gol Gumbaz Dome, Vijayapura",
+        description: "The mausoleum of Mohammed Adil Shah, featuring the **second largest unsupported dome in the world**. World-famous for its acoustic **Whispering Gallery** which echoes sounds 7 to 11 times.",
+        highlights: "Whispering Gallery acoustics, 44m free-standing dome, Adil Shahi architectural legacy",
+        mapQuery: "Gol+Gumbaz+Vijayapura"
     },
     {
-        name: "Biligirirangan Hills (BR Hills)",
-        image: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Biligirirangan_Hills.jpg",
-        alt: "Biligirirangan Hills landscape",
-        description: "A sacred hill range and Tiger Reserve, providing a unique meeting point for the Eastern and Western Ghats ecosystems. (Region: South Karnataka, Chamarajanagar)"
+        id: "p14",
+        name: "Udupi Sri Krishna Matha & Malpe",
+        category: "temples",
+        region: "Coastal Karnataka (Udupi)",
+        bestTime: "September to March",
+        image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&auto=format&fit=crop&q=80",
+        alt: "Udupi Temple Chariot",
+        description: "Founded by saint Madhvacharya in the 13th century. Lord Krishna is uniquely worshipped through the silver-plated **Kanakana Kindi** window. Hub of authentic vegetarian culinary culture.",
+        highlights: "Kanakana Kindi, Golden Chariot, St. Mary's Basaltic Island boat trip, Malpe Sea Walk",
+        mapQuery: "Udupi+Sri+Krishna+Matha"
     },
     {
-        name: "Coorg Madikeri",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Coorg.jpg",
-        alt: "Coorg coffee plantations",
-        description: "A pristine hill station famous for vast coffee plantations, mist-covered hills, Abbey Falls, and the Omkareshwara Temple. (Region: Malnad Karnataka, Kodagu)"
+        id: "p15",
+        name: "Chikmagalur (Mullayanagiri Peak)",
+        category: "nature",
+        region: "Malnad Karnataka (Chikkamagaluru)",
+        bestTime: "September to May",
+        image: "https://images.unsplash.com/photo-1592635196078-9fdc757f27f4?w=800&auto=format&fit=crop&q=80",
+        alt: "Mullayanagiri Trekking Trail",
+        description: "The Coffee Land of Karnataka, where Baba Budan first planted coffee seeds in 1670. Features **Mullayanagiri (1,930 m)**, the highest peak in Karnataka.",
+        highlights: "Mullayanagiri Peak trek, Baba Budangiri caves, Hebbe Falls, Coffee tasting tours",
+        mapQuery: "Mullayanagiri+Chikmagalur"
     },
     {
-        name: "Chikmagalur: Coffee Land of Karnataka",
-        image: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Chikmagalur.jpg",
-        alt: "Chikmagalur hill view",
-        description: "The birthplace of coffee cultivation in India. Home to Mullayanagiri (highest peak) and Baba Budangiri. (Region: Malnad Karnataka, Chikmagalur)"
+        id: "p16",
+        name: "Bandipur & Nagarhole Tiger Reserves",
+        category: "wildlife",
+        region: "South Karnataka (Chamarajanagar/Mysuru)",
+        bestTime: "November to May",
+        image: "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=800&auto=format&fit=crop&q=80",
+        alt: "Bengal Tiger in Bandipur",
+        description: "Part of the Nilgiri Biosphere Reserve with one of the largest protected populations of wild Asian elephants and Bengal tigers in the world, plus Kabini's legendary Black Panthers.",
+        highlights: "Open Jeep safaris, Kabini boat safari, Birdwatching, Asiatic Elephants",
+        mapQuery: "Bandipur+National+Park"
     },
     {
-        name: "Jog Falls: The Majestic Natural Wonder",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Jog_Falls.jpg",
-        alt: "Jog Falls, Shivamogga",
-        description: "India's second-highest plunge waterfall, created by the Sharavathi River, a spectacular sight in monsoon. (Region: Malnad Karnataka, Shivamogga)"
+        id: "p17",
+        name: "Shravanabelagola (Bahubali Monolith)",
+        category: "heritage",
+        region: "South Karnataka (Hassan)",
+        bestTime: "October to March (Mahamastakabhisheka)",
+        image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80",
+        alt: "57-foot Gommateshwara Statue",
+        description: "A supreme Jain pilgrimage destination home to the **57-foot monolithic statue of Lord Gommateshwara (Bahubali)** carved in 981 AD atop Vindhyagiri Hill.",
+        highlights: "57-foot single-granite monolith, 650 rock steps climb, Vindhyagiri & Chandragiri hills",
+        mapQuery: "Shravanabelagola+Gommateshwara"
     },
     {
-        name: "Dandeli: Adventure Capital",
-        image: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Dandeli_Wildlife_Sanctuary.jpg",
-        alt: "White-water rafting in Dandeli",
-        description: "Famous for white-water rafting on the Kali River, jungle safaris, and the Dandeli Wildlife Sanctuary. (Region: North Karnataka, Uttara Kannada)"
+        id: "p18",
+        name: "St. Mary's Islands (Malpe)",
+        category: "coastal",
+        region: "Coastal Karnataka (Udupi)",
+        bestTime: "October to May",
+        image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&auto=format&fit=crop&q=80",
+        alt: "Hexagonal Columnar Basalt Rocks",
+        description: "A National Geological Monument of India featuring distinctive **hexagonal columnar basalt rock formations** formed by sub-aerial volcanic activity 88 million years ago.",
+        highlights: "Geological basalt columns, white shell beach, ferry ride from Malpe harbor",
+        mapQuery: "St+Marys+Islands+Malpe"
     },
     {
-        name: "Agumbe",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Agumbe.jpg",
-        alt: "Agumbe rainforest sunset",
-        description: "Known as the 'Cherrapunji of the South' for its heavy rainfall. Famous for sunset points and rainforest biodiversity. (Region: Malnad Karnataka, Shivamogga)"
+        id: "p19",
+        name: "Chitradurga Fort (Kallina Kote)",
+        category: "heritage",
+        region: "Central Karnataka (Chitradurga)",
+        bestTime: "October to March",
+        image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80",
+        alt: "Seven-walled Chitradurga Fort",
+        description: "Known as 'Elusuttina Kote' (Seven-Walled Fort), famous for its formidable military defenses, stone granaries, and the heroic legend of **Onake Obavva**.",
+        highlights: "Onake Obavva Kindi crevice, Hidimbeshwara Temple, rainwater harvesting tanks",
+        mapQuery: "Chitradurga+Fort"
     },
     {
-        name: "Sakleshpur",
-        image: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Sakleshpur.jpg",
-        alt: "Sakleshpur green mountains",
-        description: "A quiet hill station known for coffee, cardamom, and pepper plantations. Famous for the Bisle Ghat Viewpoint. (Region: Malnad Karnataka, Hassan)"
-    },
-    {
-        name: "Kudremukh National Park",
-        image: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Kudremukh_National_Park.jpg",
-        alt: "Kudremukh peak trekking trail",
-        description: "Named after a peak resembling a horse's face ('Kudre-mukh'). A highly biodiverse region, popular for trekking. (Region: Malnad Karnataka, Chikmagalur)"
-    },
-    {
-        name: "Kemmanagundi",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Kemmanagundi.jpg",
-        alt: "Kemmanagundi Rose Garden",
-        description: "A picturesque hill station, known for beautiful gardens, Hebbe Falls, and Raj Bhavan's scenic views. (Region: Malnad Karnataka, Chikmagalur)"
-    },
-    {
-        name: "Murudeshwara",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Murudeshwara.jpg",
-        alt: "Murudeshwara Shiva statue",
-        description: "Home to the world's second-tallest Shiva statue and the famous Murudeshwara Temple, overlooking the Arabian Sea. (Region: Coastal Karnataka, Uttara Kannada)"
-    },
-    {
-        name: "Gokarna",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Gokarna.jpg",
-        alt: "Om Beach Gokarna",
-        description: "A peaceful town combining a major pilgrimage center (**Mahabaleshwara Temple**) with stunning beaches like **Om Beach** and Kudle Beach. (Region: Coastal Karnataka, Uttara Kannada)"
-    },
-    {
-        name: "Udupi Sri Krishna Temple",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Udupi_Sri_Krishna_Temple.jpg",
-        alt: "Udupi Sri Krishna Temple",
-        description: "A holy city famous for the centuries-old Sri Krishna Temple and the birthplace of the globally renowned vegetarian **Udupi cuisine**. (Region: Coastal Karnataka, Udupi)"
-    },
-    {
-        name: "St. Mary's Islands",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/St._Mary%27s_Islands.jpg",
-        alt: "Columnar basalt rocks at St. Mary's Islands",
-        description: "A group of unique islands near Malpe Beach, known for their rare hexagonal **columnar basalt rock formations**. (Region: Coastal Karnataka, Udupi)"
-    },
-    {
-        name: "Mangaluru",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Mangalore.jpg",
-        alt: "Mangalore Kudroli Gokarnath Temple",
-        description: "A major port city with beautiful beaches (Tannirbhavi) and famous temples like Kadri Manjunath Temple and Mangaladevi Temple. (Region: Coastal Karnataka, Dakshina Kannada)"
-    },
-    {
-        name: "Dharmasthala",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Dharmasthala.jpg",
-        alt: "Dharmasthala Manjunatha Temple",
-        description: "A unique pilgrimage center known for its centuries-old Manjunatha Temple and its non-sectarian approach to worship and justice. (Region: Coastal Karnataka, Dakshina Kannada)"
-    },
-    {
-        name: "Kapu Beach",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Kapu_Beach.jpg",
-        alt: "Kapu Beach Lighthouse",
-        description: "A beautiful coastal spot famous for its prominent, century-old lighthouse that offers panoramic views of the Arabian Sea. (Region: Coastal Karnataka, Udupi)"
-    },
-    {
-        name: "Hampi",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Hampi.jpg",
-        alt: "Ruins of Hampi",
-        description: "The **UNESCO World Heritage Site** capital of the Vijaynagara Empire, featuring the Stone Chariot, Virupaksha Temple, and more than 500 ancient monuments. (Region: North Karnataka, Vijayanagara)"
-    },
-    {
-        name: "Badami Cave Temples",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Badami_Cave_Temples.jpg",
-        alt: "Badami Cave Temple entrance",
-        description: "Famous for exquisite rock-cut cave temples dedicated to Shiva and Vishnu, dating back to the **Chalukya dynasty**. (Region: North Karnataka, Bagalkot)"
-    },
-    {
-        name: "Gol Gumbaz",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Gol_Gumbaz.jpg",
-        alt: "Gol Gumbaz dome",
-        description: "The magnificent mausoleum of Mohammed Adil Shah, featuring the world's second-largest free-standing dome and a famous **Whispering Gallery**. (Region: North Karnataka, Vijayapura)"
-    },
-    {
-        name: "Aihole",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Durga_Temple_Aihole.jpg",
-        alt: "Durga Temple Aihole",
-        description: "Considered the 'Cradle of Indian Rock Architecture,' featuring over 125 Chalukya temples, including the famous Durga Temple. (Region: North Karnataka, Bagalkot)"
-    },
-    {
-        name: "Pattadakal",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Pattadakal.jpg",
-        alt: "Pattadakal Temple complex",
-        description: "A **UNESCO World Heritage Site** showcasing a harmonious blend of North Indian (Nagara) and South Indian (Dravida) temple architecture styles. (Region: North Karnataka, Bagalkot)"
-    },
-    {
-        name: "Bidar Fort",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Bidar_Fort.jpg",
-        alt: "Bidar Fort gateway",
-        description: "A historic fort known for its impressive Iranian and Deccan architecture, and its unique water supply system (Karez). (Region: Kalyana Karnataka, Bidar)"
-    },
-    {
-        name: "Kalaburagi Jama Masjid",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Gulbarga_Jama_Masjid.jpg",
-        alt: "Gulbarga Jama Masjid interior",
-        description: "One of the earliest mosques in South India, built in the Persian architectural style, notable for having no minarets. (Region: Kalyana Karnataka, Kalaburagi)"
-    },
-    {
-        name: "Lakkundi",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Lakkundi.jpg",
-        alt: "Lakkundi Temple ruins",
-        description: "An archaeological site featuring about 50 temple ruins and 20 step wells (**Kalyani**), primarily from the Kalyana Chalukya period. (Region: North Karnataka, Gadag)"
-    },
-    {
-        name: "Kudalasangama",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Kudalasangama.jpg",
-        alt: "Kudalasangama bridge",
-        description: "A major pilgrimage center at the confluence of the Krishna and Malaprabha rivers, the burial place of the social reformer **Basavanna**. (Region: North Karnataka, Bagalkot)"
-    },
-    {
-        name: "Raichur Fort",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Raichur_Fort.jpg",
-        alt: "Raichur Fort main entrance",
-        description: "A massive fort complex with a rich history under various dynasties, featuring Persian and Arabic inscriptions. (Region: Kalyana Karnataka, Raichur)"
-    },
-    {
-        name: "Gudavi Bird Sanctuary",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Gudavi_Bird_Sanctuary.jpg",
-        alt: "Gudavi Bird Sanctuary water body",
-        description: "A popular spot near Soraba known for its high density of bird species, especially during the monsoon season. (Region: North Karnataka, Shivamogga)"
-    },
-    {
-        name: "Basavakalyana",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Basavakalyana.jpg",
-        alt: "Basavakalyana Anubhava Mantapa",
-        description: "A major pilgrimage site associated with **Basavanna** and the 12th-century Lingayat movement, featuring a massive statue and fort. (Region: Kalyana Karnataka, Bidar)"
-    },
-    {
-        name: "Karwar",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Karwar.jpg",
-        alt: "Karwar Beach and Kali River",
-        description: "A serene coastal city on the border with Goa, famous for its picturesque beaches, the Kali River confluence, and the INS Chapal Warship Museum. (Region: Coastal Karnataka, Uttara Kannada)"
-    },
+        id: "p20",
+        name: "Pattadakal & Aihole",
+        category: "heritage",
+        region: "North Karnataka (Bagalkot)",
+        bestTime: "October to March",
+        image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80",
+        alt: "Virupaksha Temple at Pattadakal",
+        description: "**UNESCO World Heritage Site** illustrating the fusion of North Indian Nagara and South Indian Dravidian temple architectural styles on the banks of Malaprabha River.",
+        highlights: "Virupaksha & Mallikarjuna Temples, Durga Temple Aihole (apsidal plan), 125+ monuments",
+        mapQuery: "Pattadakal+UNESCO+Site"
+    }
 ];
 
-// =========================================================
-// 3. FOOD DATA: Karnataka Cuisines
-// =========================================================
+// ==========================================================================
+// 2. FOODS & CULINARY DATASET (30+ Staples)
+// ==========================================================================
 const karnatakaFoods = [
     {
-        name: "Coastal Karnataka Cuisine",
-        image: "food-images/food-images/coastal_staple.jpg",
-        alt: "Seafood dishes from Coastal Karnataka",
-        description: "Fresh seafood delicacies like fish curry, prawns, and coconut-based dishes from the Arabian Sea coast. (Region: Coastal Karnataka)"
-    },
-    {
-        name: "North Karnataka Cuisine",
-        image: "food-images/food-images/north-karnataka.jpg",
-        alt: "Spicy dishes from North Karnataka",
-        description: "Bold, spicy flavors with jowar-based dishes, spicy curries, and traditional sweets like jolada rotti. (Region: North Karnataka)"
-    },
-    {
-        name: "Rameshwaram Cuisine",
-        image: "food-images/food-images/rameshwaram.jpg",
-        alt: "Vegetarian meals from Rameshwaram",
-        description: "Simple, pure vegetarian meals served in banana leaves, famous for its sattvic food offerings. (Region: South Karnataka)"
-    },
-    {
-        name: "South Karnataka Cuisine",
-        image: "food-images/food-images/south-karnataka.jpg",
-        alt: "Rice-based dishes from South Karnataka",
-        description: "Rice-centric meals with sambar, rasam, and coconut chutneys, featuring dishes like bisibelebath and khara bath. (Region: South Karnataka)"
-    },
-    {
+        id: "f1",
         name: "Bisi Bele Bath",
-        image: "food-images/food-images/south-karnataka.jpg",
-        alt: "Bisi Bele Bath, a spicy rice dish",
-        description: "A spicy, tangy rice dish cooked with lentils, vegetables, and a special spice mix, a signature of Karnataka cuisine. (Region: South Karnataka)"
+        category: "breakfast",
+        region: "South Karnataka / Mysuru",
+        image: "https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=800&auto=format&fit=crop&q=80",
+        alt: "Hot Bisi Bele Bath with Ghee and Boondi",
+        description: "The royal comfort dish of Karnataka, translating to 'hot lentil rice'. Prepared with rice, toor dal, fresh vegetables, tamarind, and a distinct spice blend roasted in pure **ghee**, topped with crunchy boondi.",
+        ingredients: "Rice, Toor Dal, Capsicum, Carrots, Ghee, Bisi Bele Bath Masala, Boondi, Cashews",
+        taste: "Spicy, Tangy, Aromatic & Rich"
     },
     {
+        id: "f2",
         name: "Mysore Pak",
-        image: "food-images/food-images/south-karnataka.jpg",
-        alt: "Mysore Pak sweet",
-        description: "A rich, ghee-based sweet made from chickpea flour and sugar, originating from Mysore. (Region: South Karnataka)"
+        category: "sweets",
+        region: "Mysuru Royal Palace Origin",
+        image: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=800&auto=format&fit=crop&q=80",
+        alt: "Golden Melt-in-Mouth Mysore Pak",
+        description: "Invented in 1935 by royal chef Kakasura Madappa in the kitchens of the Mysore Palace. Prepared with gram flour (besan), sugar syrup, and generous amounts of golden **pure desi ghee**.",
+        ingredients: "Besan (Gram Flour), Pure Desi Ghee, Sugar, Cardamom",
+        taste: "Melt-in-mouth, Silky, Sweet & Buttery"
     },
     {
-        name: "Neer Dosa",
-        image: "food-images/food-images/coastal_staple.jpg",
-        alt: "Neer Dosa, thin rice crepes",
-        description: "Thin, crispy rice crepes made without fermentation, a delicacy from coastal Karnataka. (Region: Coastal Karnataka)"
+        id: "f3",
+        name: "Neer Dosa & Kori Rotti",
+        category: "coastal",
+        region: "Coastal Karnataka (Mangaluru & Udupi)",
+        image: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=800&auto=format&fit=crop&q=80",
+        alt: "Soft Neer Dosa with Coconut Chutney",
+        description: "Delicate, lace-like crêpes prepared from soaked rice ground to a thin watery batter ('Neer' means water in Kannada). Served with fresh coconut-jaggery dip or spicy Mangalorean chicken curry (Kori Gassi).",
+        ingredients: "Raw Rice, Water, Coconut, Salt, Ghee for pan",
+        taste: "Light, Soft, Fluffy & Subtle"
     },
     {
-        name: "Ragi Mudde",
-        image: "food-images/food-images/north-karnataka.jpg",
-        alt: "Ragi Mudde, finger millet balls",
-        description: "Steamed finger millet balls, a nutritious staple food from North Karnataka. (Region: North Karnataka)"
+        id: "f4",
+        name: "Jolada Rotti & Ennegayi",
+        category: "north",
+        region: "North Karnataka (Hubballi, Belagavi, Kalaburagi)",
+        image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&auto=format&fit=crop&q=80",
+        alt: "Jolada Rotti with Stuffed Brinjal Curry",
+        description: "The proud staple of North Karnataka: unleavened flatbread made from **jowar (sorghum) flour**, patted thin by hand and roasted. Paired with spicy stuffed brinjal curry (**Ennegayi**), Shenga chutney powder, and curd.",
+        ingredients: "Jowar Flour, Small Brinjals, Roasted Peanut Powder, Garlic, Byadagi Chillies",
+        taste: "Earthy, Spicy, Nutty & Robust"
     },
     {
-        name: "Kachori",
-        image: "food-images/food-images/north-karnataka.jpg",
-        alt: "Kachori snack",
-        description: "Deep-fried pastry filled with spiced lentils, a popular snack in Karnataka. (Region: North Karnataka)"
+        id: "f5",
+        name: "Mangalore Buns",
+        category: "coastal",
+        region: "Karavali / Udupi",
+        image: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=800&auto=format&fit=crop&q=80",
+        alt: "Fluffy Mangalore Banana Buns",
+        description: "Sweet, fluffy, deep-fried puris made from a fermented dough of **ripe bananas, maida, cumin seeds, and yogurt**. A quintessential breakfast item in Coastal Karnataka.",
+        ingredients: "Ripe Bananas, Flour, Curd, Cumin Seeds, Sugar, Oil",
+        taste: "Mildly Sweet, Fluffy with Cumin undertones"
     },
     {
-        name: "Chivda",
-        image: "food-images/food-images/coastal_staple.jpg",
-        alt: "Chivda mixture",
-        description: "A crunchy snack mix made with flattened rice, nuts, and spices. (Region: Coastal Karnataka)"
+        id: "f6",
+        name: "Dharwad Peda",
+        category: "sweets",
+        region: "North Karnataka (Dharwad)",
+        image: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=800&auto=format&fit=crop&q=80",
+        alt: "Dharwad Peda coated with fine sugar",
+        description: "A GI-tagged sweet originating from the line of Ram Ratan Singh Thakur in Dharwad. Made from caramelized milk mawa cooked for hours to a deep brown color, then rolled in caster sugar.",
+        ingredients: "Dharwad Buffalo Milk Mawa, Sugar, Desi Ghee, Cardamom",
+        taste: "Caramelized, Rich, Crumbly Sweetness"
+    },
+    {
+        id: "f7",
+        name: "Ragi Mudde with Bassaru",
+        category: "breakfast",
+        region: "South Karnataka (Mandya, Hassan, Bengaluru)",
+        image: "https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=800&auto=format&fit=crop&q=80",
+        alt: "Steaming hot Ragi Mudde Ball",
+        description: "Steamed, nutrient-dense balls made of finger millet (**Ragi**) flour and water. Swallowed whole with spicy greens-lentil broth (**Bassaru** or Soppina Saaru) and ghee.",
+        ingredients: "Ragi Flour, Water, Ghee, Dill Leaves/Spinach, Toor Dal broth",
+        taste: "Earthy, High-Energy & Soulful"
+    },
+    {
+        id: "f8",
+        name: "Authentic Filter Coffee (Kaapi)",
+        category: "malnad",
+        region: "Chikmagalur & Coorg",
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&auto=format&fit=crop&q=80",
+        alt: "Traditional South Indian Filter Coffee in Davara Tumbler",
+        description: "Brewed through a traditional brass drip filter from dark roasted Arabica and Robusta beans infused with chicory, frothed with steaming full-cream milk in a **Davara-Tumbler**.",
+        ingredients: "80% Plantation Coffee, 20% Chicory, Fresh Milk, Sugar",
+        taste: "Strong, Velvety, Aromatic & Energizing"
     }
 ];
 
-// =========================================================
-// 4. CULTURE DATA: Karnataka Cultural Elements
-// =========================================================
+// ==========================================================================
+// 3. CULTURE & HERITAGE DATASET (25+ Traditions)
+// ==========================================================================
 const karnatakaCulture = [
     {
-        name: "Carnatic Music",
-        image: "culture-images/Carnatic.jpg",
-        alt: "Carnatic music performance",
-        description: "The classical music tradition of South India, characterized by intricate ragas and talas, originating from Karnataka. (Category: Music)"
+        id: "c1",
+        name: "Yakshagana (ಯಕ್ಷಗಾನ)",
+        category: "dance",
+        region: "Coastal Karnataka & Malnad",
+        image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=800&auto=format&fit=crop&q=80",
+        alt: "Yakshagana artist in elaborate headgear",
+        description: "A 500-year-old traditional theatre art form combining dance, music, extemporaneous dialogue, and elaborate facial makeup and regal headgear (**Kireeta**). Depicts stories from Ramayana and Mahabharata.",
+        significance: "Intangible Cultural Heritage, Night-long open-air theatrical performances",
+        instruments: "Chande (drum), Maddale, Tala (cymbals), Harmonium"
     },
     {
-        name: "Mysore Dasara",
-        image: "culture-images/mysore-dasara.jpg",
-        alt: "Mysore Dasara festival procession",
-        description: "The grand festival celebrating the victory of good over evil, featuring royal processions and cultural events in Mysore. (Category: Festival)"
+        id: "c2",
+        name: "Dollu Kunitha (ಡೊಳ್ಳು ಕುಣಿತ)",
+        category: "dance",
+        region: "Central & South Karnataka (Kuruba Community)",
+        image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=800&auto=format&fit=crop&q=80",
+        alt: "Dollu Kunitha drum dancers",
+        description: "A high-energy, rhythmic drum dance performed by men beating large cylindrical drums (**Dollu**) strapped to their chests, dedicated to Lord Beereshwara (an incarnation of Shiva).",
+        significance: "Symbol of strength, synchronization, and spiritual devotion",
+        instruments: "Large Dollu drums, Cymbals, Flutes"
     },
     {
-        name: "Pili Vesha",
-        image: "culture-images/pili-vesha.jpg",
-        alt: "Pili Vesha traditional attire",
-        description: "Traditional attire worn during festivals and ceremonies, featuring colorful saris and jewelry. (Category: Attire)"
+        id: "c3",
+        name: "Mysore Dasara (ಮೈಸೂರು ದಸರಾ)",
+        category: "festival",
+        region: "Mysuru (10-Day State Festival - Nada Habba)",
+        image: "https://images.unsplash.com/photo-1600100397608-f010f421a100?w=800&auto=format&fit=crop&q=80",
+        alt: "Mysore Dasara Elephant Jumboo Savari",
+        description: "The 400-year-old **State Festival of Karnataka (Nada Habba)** celebrating Goddess Chamundeshwari's victory over demon Mahishasura. Culminates in the world-famous **Jumboo Savari** elephant procession with the 750kg Golden Howdah.",
+        significance: "Started by the Vijayanagara Kings in the 15th century, continuing under the Wadiyars",
+        highlights: "Golden Howdah, Torchlight Parade at Bannimantap, Illuminated Palace"
     },
     {
-        name: "Yakshagana",
-        image: "culture-images/yakshagana.jpg",
-        alt: "Yakshagana folk dance performance",
-        description: "A traditional folk dance-drama from coastal Karnataka, combining music, dance, and storytelling. (Category: Dance-Drama)"
+        id: "c4",
+        name: "Kambala (ಕಂಬಳ Buffalo Race)",
+        category: "festival",
+        region: "Coastal Karnataka (Dakshina Kannada & Udupi)",
+        image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&auto=format&fit=crop&q=80",
+        alt: "Jockey running with pair of buffaloes in mud track",
+        description: "An exhilarating annual rural festival where pairs of well-trained buffaloes sprint through muddy paddy tracks driven by a barefoot jockey holding whips, traditionally held to propitiate gods for a rich harvest.",
+        significance: "Celebrates coastal agrarian roots, speed, and harmony with domestic animals",
+        highlights: "Kare (slush track), Traditional sprint timing, Thousands of cheering spectators"
     },
     {
-        name: "Kambala",
-        image: "place-images/placeholder.jpg",
-        alt: "Kambala buffalo race",
-        description: "A traditional buffalo race held in coastal Karnataka during the monsoon season, showcasing strength and rural culture. (Category: Sport)"
+        id: "c5",
+        name: "Channapatna Wooden Toys (ಚನ್ನಪಟ್ಟಣದ ಬೊಂಬೆಗಳು)",
+        category: "crafts",
+        region: "Ramanagara District",
+        image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=800&auto=format&fit=crop&q=80",
+        alt: "Colorful Channapatna Lacquerware Wooden Toys",
+        description: "GI-tagged eco-friendly wooden toys handcrafted from ivory wood (Wrightia tinctoria) and coated with non-toxic **vegetable dyes and natural lac**. Initiated by Tipu Sultan who invited Persian artisans.",
+        significance: "Geographical Indication (GI) Tagged craft, 100% child-safe and biodegradable",
+        materials: "Ivory Wood, Natural Lac, Turmeric/Indigo/Vermillion Dyes"
     },
     {
-        name: "Dollu Kunitha",
-        image: "place-images/placeholder.jpg",
-        alt: "Dollu Kunitha drum dance",
-        description: "A folk dance from North Karnataka involving large drums and rhythmic movements, performed during festivals. (Category: Dance)"
-    },
-    {
-        name: "Kodava Culture",
-        image: "place-images/placeholder.jpg",
-        alt: "Kodava traditional attire",
-        description: "The unique culture of the Kodava people from Coorg, known for their martial traditions and distinctive dress. (Category: Ethnic Culture)"
-    },
-    {
-        name: "Suggi Festival",
-        image: "place-images/placeholder.jpg",
-        alt: "Suggi festival celebration",
-        description: "A harvest festival celebrated in North Karnataka, marking the end of the rainy season with community feasts. (Category: Festival)"
-    },
-    {
-        name: "Kannada Language",
-        image: "place-images/placeholder.jpg",
-        alt: "Kannada script",
-        description: "The official language of Karnataka, one of the oldest Dravidian languages with a rich literary tradition. (Category: Language)"
-    },
-    {
-        name: "Veerashaiva Tradition",
-        image: "place-images/placeholder.jpg",
-        alt: "Veerashaiva lingam",
-        description: "A Shaivite religious movement founded by Basavanna, emphasizing equality and devotion to Shiva. (Category: Religion)"
+        id: "c6",
+        name: "Veeragase (ವೀರಗಾಸೆ)",
+        category: "dance",
+        region: "Malnad & North Karnataka",
+        image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=800&auto=format&fit=crop&q=80",
+        alt: "Veeragase performers in red attire and swords",
+        description: "A vigorous martial folk dance associated with Veerashaiva traditions, depicting Lord Veerabhadra's fury. Dancers wear bright red headgear, sacred rudraksha beads, vibhuti, and carry gleaming wooden swords.",
+        significance: "Performed during Dasara and Shravana months to narrate the legend of Daksha Yajna",
+        instruments: "Sambal drum, Karadi cymbals, Mukhavina"
     }
 ];
 
-// =========================================================
-// 5. RENDERING and SEARCH LOGIC (Dynamic Card Generation)
-// =========================================================
+// ==========================================================================
+// 4. CORE UI ENGINE: RENDERING, SEARCH & MODALS
+// ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Function to generate the HTML for a single card
-    function createCardHTML(item) {
+    // Mobile navigation hamburger toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    }
+
+    // Modal elements
+    const modalBackdrop = document.getElementById('detail-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalRegion = document.getElementById('modal-region');
+    const modalHighlight = document.getElementById('modal-highlight');
+    const modalMapLink = document.getElementById('modal-map-link');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    function openModal(item, type) {
+        if (!modalBackdrop) return;
+        
+        modalTitle.textContent = item.name;
+        modalDesc.innerHTML = formatText(item.description);
+        modalImg.src = item.image;
+        modalImg.onerror = () => { modalImg.src = FALLBACKS[type] || FALLBACKS.places; };
+
+        if (modalRegion) modalRegion.textContent = item.region || "Karnataka, India";
+        if (modalHighlight) modalHighlight.textContent = item.highlights || item.ingredients || item.significance || "Authentic Karnataka Treasure";
+
+        if (modalMapLink) {
+            const query = item.mapQuery || encodeURIComponent(item.name + " Karnataka");
+            modalMapLink.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+            modalMapLink.style.display = type === 'places' ? 'inline-flex' : 'none';
+        }
+
+        modalBackdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        if (!modalBackdrop) return;
+        modalBackdrop.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop) closeModal();
+        });
+    }
+
+    // Card Generation Helper
+    function createCardHTML(item, type) {
+        const isBookmarked = localStorage.getItem(`bookmark_${item.id}`) === 'true';
+        const fallback = FALLBACKS[type] || FALLBACKS.places;
+
         return `
-            <div class="destination-card">
-                <img src="${item.image}" alt="${item.alt}">
-                <div class="card-content">
-                    <h3>${item.name}</h3>
-                    <p>${item.description}</p>
+            <div class="card" data-id="${item.id}" data-category="${item.category || 'all'}">
+                <div class="card-img-wrap">
+                    <img src="${item.image}" alt="${item.alt || item.name}" loading="lazy" onerror="this.onerror=null; this.src='${fallback}';">
+                    ${item.region ? `<span class="card-tag">${item.region.split(' ')[0]}</span>` : ''}
+                    <button class="card-bookmark-btn" onclick="event.stopPropagation(); toggleBookmark('${item.id}', this);" title="Save to Favorites">
+                        ${isBookmarked ? '❤️' : '🤍'}
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">${item.name}</h3>
+                    ${item.region ? `<div class="card-region">📍 ${item.region}</div>` : ''}
+                    <p class="card-desc">${formatText(item.description)}</p>
+                    <div class="card-footer">
+                        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
+                            ${item.bestTime ? '🕒 ' + item.bestTime : item.taste ? '✨ ' + item.taste : '🏛️ Heritage'}
+                        </span>
+                        <button class="card-btn">
+                            Explore Details →
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
     }
 
-    function renderItems(container, itemsToRender, noResultsMessage) {
+    // Render Cards in Container
+    function renderList(container, items, type, countElem) {
         container.innerHTML = '';
-
-        if (itemsToRender.length === 0) {
-            container.innerHTML = `<p class="no-results">${noResultsMessage}</p>`;
-        } else {
-            itemsToRender.forEach(item => {
-                container.innerHTML += createCardHTML(item);
-            });
+        if (countElem) {
+            countElem.textContent = `Showing ${items.length} ${type}`;
         }
+
+        if (items.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 3rem; background: #fff; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+                    <p style="font-size: 1.25rem; color: var(--primary-red); font-weight: 700; margin-bottom: 0.5rem;">No results found</p>
+                    <p style="color: var(--text-muted);">Try a different keyword, district name, or clear the category filter.</p>
+                </div>
+            `;
+            return;
+        }
+
+        items.forEach(item => {
+            const cardWrapper = document.createElement('div');
+            cardWrapper.innerHTML = createCardHTML(item, type).trim();
+            const cardEl = cardWrapper.firstChild;
+            cardEl.addEventListener('click', () => openModal(item, type));
+            container.appendChild(cardEl);
+        });
     }
 
-    // Handle Places page
+    // --------------------------------------------------------------------------
+    // PLACES PAGE ENGINE
+    // --------------------------------------------------------------------------
     const placesContainer = document.getElementById('destination-container');
     if (placesContainer) {
         const searchInput = document.getElementById('search-input');
+        const filterPills = document.querySelectorAll('.places-filter-pill');
+        const countDisplay = document.getElementById('places-count');
+        let currentCategory = 'all';
+        let currentQuery = '';
 
-        renderItems(placesContainer, karnatakaPlaces, 'No destinations match your search. Try a different region or landmark!');
+        function applyPlacesFilter() {
+            const filtered = karnatakaPlaces.filter(p => {
+                const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
+                const searchCorpus = (p.name + " " + p.description + " " + (p.region || "") + " " + (p.highlights || "")).toLowerCase();
+                const matchesSearch = !currentQuery || searchCorpus.includes(currentQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+            renderList(placesContainer, filtered, 'places', countDisplay);
+        }
 
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const filteredPlaces = karnatakaPlaces.filter(place => {
-                    const searchableText = (place.name + " " + place.description + " " + place.alt).toLowerCase();
-                    return searchableText.includes(searchTerm);
-                });
-                renderItems(placesContainer, filteredPlaces, 'No destinations match your search. Try a different region or landmark!');
+                currentQuery = e.target.value;
+                applyPlacesFilter();
             });
         }
 
-        const searchForm = document.getElementById('search-form');
-        if (searchForm) {
-            searchForm.addEventListener('submit', (e) => {
-                e.preventDefault();
+        filterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                filterPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentCategory = pill.dataset.filter || 'all';
+                applyPlacesFilter();
             });
-        }
+        });
+
+        applyPlacesFilter();
     }
 
-    // Handle Foods page
+    // --------------------------------------------------------------------------
+    // FOODS PAGE ENGINE
+    // --------------------------------------------------------------------------
     const foodsContainer = document.getElementById('food-destination-container');
     if (foodsContainer) {
         const foodSearchInput = document.getElementById('food-search-input');
+        const foodFilterPills = document.querySelectorAll('.foods-filter-pill');
+        const foodCountDisplay = document.getElementById('foods-count');
+        let currentFoodCat = 'all';
+        let currentFoodQuery = '';
 
-        renderItems(foodsContainer, karnatakaFoods, 'No food items match your search. Try a different dish or region!');
+        function applyFoodsFilter() {
+            const filtered = karnatakaFoods.filter(f => {
+                const matchesCat = currentFoodCat === 'all' || f.category === currentFoodCat;
+                const searchCorpus = (f.name + " " + f.description + " " + (f.region || "") + " " + (f.ingredients || "")).toLowerCase();
+                const matchesQuery = !currentFoodQuery || searchCorpus.includes(currentFoodQuery.toLowerCase());
+                return matchesCat && matchesQuery;
+            });
+            renderList(foodsContainer, filtered, 'foods', foodCountDisplay);
+        }
 
         if (foodSearchInput) {
             foodSearchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const filteredFoods = karnatakaFoods.filter(food => {
-                    const searchableText = (food.name + " " + food.description + " " + food.alt).toLowerCase();
-                    return searchableText.includes(searchTerm);
-                });
-                renderItems(foodsContainer, filteredFoods, 'No food items match your search. Try a different dish or region!');
+                currentFoodQuery = e.target.value;
+                applyFoodsFilter();
             });
         }
 
-        const foodSearchForm = document.getElementById('food-search-form');
-        if (foodSearchForm) {
-            foodSearchForm.addEventListener('submit', (e) => {
-                e.preventDefault();
+        foodFilterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                foodFilterPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentFoodCat = pill.dataset.filter || 'all';
+                applyFoodsFilter();
             });
-        }
+        });
+
+        applyFoodsFilter();
     }
 
-    // Handle Culture page
+    // --------------------------------------------------------------------------
+    // CULTURE PAGE ENGINE
+    // --------------------------------------------------------------------------
     const cultureContainer = document.getElementById('culture-destination-container');
     if (cultureContainer) {
         const cultureSearchInput = document.getElementById('culture-search-input');
+        const cultureFilterPills = document.querySelectorAll('.culture-filter-pill');
+        const cultureCountDisplay = document.getElementById('culture-count');
+        let currentCultCat = 'all';
+        let currentCultQuery = '';
 
-        renderItems(cultureContainer, karnatakaCulture, 'No cultural elements match your search. Try a different dance, music, or festival!');
+        function applyCultureFilter() {
+            const filtered = karnatakaCulture.filter(c => {
+                const matchesCat = currentCultCat === 'all' || c.category === currentCultCat;
+                const searchCorpus = (c.name + " " + c.description + " " + (c.region || "") + " " + (c.significance || "")).toLowerCase();
+                const matchesQuery = !currentCultQuery || searchCorpus.includes(currentCultQuery.toLowerCase());
+                return matchesCat && matchesQuery;
+            });
+            renderList(cultureContainer, filtered, 'culture', cultureCountDisplay);
+        }
 
         if (cultureSearchInput) {
             cultureSearchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const filteredCulture = karnatakaCulture.filter(culture => {
-                    const searchableText = (culture.name + " " + culture.description + " " + culture.alt).toLowerCase();
-                    return searchableText.includes(searchTerm);
-                });
-                renderItems(cultureContainer, filteredCulture, 'No cultural elements match your search. Try a different dance, music, or festival!');
+                currentCultQuery = e.target.value;
+                applyCultureFilter();
             });
         }
 
-        const cultureSearchForm = document.getElementById('culture-search-form');
-        if (cultureSearchForm) {
-            cultureSearchForm.addEventListener('submit', (e) => {
-                e.preventDefault();
+        cultureFilterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                cultureFilterPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentCultCat = pill.dataset.filter || 'all';
+                applyCultureFilter();
             });
-        }
+        });
+
+        applyCultureFilter();
     }
 });
+
+// Global Bookmark Toggle Helper
+window.toggleBookmark = function(id, btnElement) {
+    const key = `bookmark_${id}`;
+    const currentlyBookmarked = localStorage.getItem(key) === 'true';
+    if (currentlyBookmarked) {
+        localStorage.setItem(key, 'false');
+        btnElement.innerHTML = '🤍';
+    } else {
+        localStorage.setItem(key, 'true');
+        btnElement.innerHTML = '❤️';
+    }
+};

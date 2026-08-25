@@ -3,57 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Culture - Namaste Karnataka</title>
+    <title>Culture, Arts & Festivals - Namaste Karnataka</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
 
+    <!-- Header & Navigation -->
     <header>
         <div class="top-bar">
-            <div class="logo">
-                <div class="logo-main">
-                    <span class="logo-text">Namaste Karnataka</span> 
-                    <span class="logo-icon">&#x1F64F;</span> 
+            <a href="index.html" class="logo">
+                <div class="logo-badge">🙏</div>
+                <div class="logo-text-group">
+                    <span class="logo-text">Namaste Karnataka</span>
+                    <span class="logo-kannada">ನಮಸ್ತೆ ಕರ್ನಾಟಕ • ಕಲೆ, ಸಾಹಿತ್ಯ ಮತ್ತು ಸಂಸ್ಕೃತಿ</span>
                 </div>
-                <span class="tagline">A Digital Cultural Showcase</span>
+            </a>
+            <div class="header-actions">
+                <span class="state-motto">🎭 Living Cultural Traditions</span>
             </div>
-        </div> 
-        
+        </div>
+
         <nav class="main-nav">
-            <ul>
-                <li><a href="index.html" id="home-link">Home</a></li>
-                <li><a href="places.html" id="places-link">Places</a></li>
-                <li><a href="foods.html" id="foods-link">Food</a></li>
-                <li><a href="culture.html" id="culture-link" class="active">Culture</a></li> 
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Navigation">☰ Menu</button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="places.html">🏛️ Places</a></li>
+                <li><a href="foods.html">🍲 Food</a></li>
+                <li><a href="culture.html" class="active">🎭 Culture</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="culture" class="cultural-heritage">
-        <div class="culture-content">
-            <h2>The Vibrant Culture of Karnataka (55+ Elements)</h2>
-            <p class="intro-text">Explore over 55 cultural aspects—from dramatic folk dances to ancient art and festivals—by searching for a name, region, or category.</p>
-            
-            <div class="search-controls">
-                <form id="culture-search-form" class="search-form">
-                    <input type="text" id="culture-search-input" placeholder="Search for a dance (e.g., Yakshagana), art (e.g., Bidriware), or festival (e.g., Dasara)...">
-                    <button type="submit" class="btn search-btn">Search</button>
-                </form>
+    <!-- Main Container -->
+    <main class="section-container">
+        <div class="section-header">
+            <span class="section-badge">Living Traditions & Arts</span>
+            <h1 class="section-title">The Vibrant Culture of Karnataka</h1>
+            <p class="section-subtitle">Immerse yourself in centuries-old folk dances, martial theatrical arts, world-famous royal festivals, and GI-tagged master handicrafts.</p>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="search-filter-wrapper">
+            <div class="search-box-group">
+                <input type="text" id="culture-search-input" class="search-input" placeholder="🔍 Search culture (e.g., Yakshagana, Dasara, Kambala, Dollu Kunitha, Toys)..." autocomplete="off">
             </div>
-            <div id="culture-destination-container" class="culture-list-grid">
-                </div>
             
+            <div class="filter-pills">
+                <button class="filter-pill culture-filter-pill active" data-filter="all">All Traditions</button>
+                <button class="filter-pill culture-filter-pill" data-filter="dance">🎭 Folk Dances & Theatre</button>
+                <button class="filter-pill culture-filter-pill" data-filter="festival">🎉 Grand Festivals</button>
+                <button class="filter-pill culture-filter-pill" data-filter="crafts">🎨 Handicrafts & GI Tags</button>
+            </div>
+
+            <div class="results-meta">
+                <span id="culture-count">Showing traditions</span>
+                <span>💡 Click any card to explore historical significance and artistry</span>
+            </div>
+        </div>
+
+        <!-- Cards Grid Container -->
+        <div id="culture-destination-container" class="cards-grid">
+            <!-- Rendered dynamically by script.js -->
+        </div>
+    </main>
+
+    <!-- Detail Modal Popup -->
+    <div class="modal-backdrop" id="detail-modal">
+        <div class="modal-content">
+            <div class="modal-header-img">
+                <img id="modal-img" src="" alt="">
+                <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modal-title"></h2>
+                <div class="modal-details-grid">
+                    <div class="modal-detail-item">
+                        <strong>Origin / Community</strong>
+                        <span id="modal-region"></span>
+                    </div>
+                    <div class="modal-detail-item">
+                        <strong>Cultural Significance</strong>
+                        <span id="modal-highlight"></span>
+                    </div>
+                </div>
+                <div id="modal-desc" style="color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plan Trip Contact CTA -->
+    <section id="contact" class="contact-section">
+        <div class="contact-box">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; color: var(--primary-red-dark); margin-bottom: 0.75rem;">Experience Karnataka's Festivals</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Plan your visit during Mysore Dasara in Autumn, the thrilling winter Kambala races, or the grand Hampi Utsav festival.</p>
+            <a href="mailto:info@karnatakatourism.com" class="btn btn-primary" style="padding: 0.85rem 2rem;">✉️ Get in Touch</a>
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <h2>Plan Your Trip</h2>
-        <p>Ready for an adventure? Contact us for custom tour packages.</p>
-        <a href="mailto:info@karnatakatourism.com" class="btn">Get in Touch</a>
-    </section>
-
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Namaste Karnaaka Cultural Project</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Namaste Karnataka</h3>
+                <p>An interactive digital showcase dedicated to the history, architecture, biodiversity, cuisines, and timeless performing arts of Karnataka, India.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Navigation</h4>
+                <ul>
+                    <li><a href="index.html">🏠 Home Page</a></li>
+                    <li><a href="places.html">🏛️ 47+ Historical Places</a></li>
+                    <li><a href="foods.html">🍲 Traditional Cuisines</a></li>
+                    <li><a href="culture.html">🎭 Folk Culture & Arts</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Namaste Karnataka Cultural Project. Author: Dhanush.</div>
+            <div>One State, Many Worlds • ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ</div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
