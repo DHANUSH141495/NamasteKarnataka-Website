@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up - Namaste Karnataka</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="top-bar">
+            <a href="index.html" class="logo">
+                <div class="logo-badge">🙏</div>
+                <div class="logo-text-group">
+                    <span class="logo-text">Namaste Karnataka</span>
+                    <span class="logo-kannada">ನಮಸ್ತೆ ಕರ್ನಾಟಕ • ಬಳಕೆದಾರರ ಪ್ರವೇಶ</span>
+                </div>
+            </a>
+            <div class="header-actions">
+                <span class="state-motto">🏛️ One State • Many Worlds</span>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Navigation">☰ Menu</button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="places.html">🏛️ Places</a></li>
+                <li><a href="foods.html">🍲 Food</a></li>
+                <li><a href="culture.html">🎭 Culture</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Auth Container -->
+    <main class="section-container" style="max-width: 540px; padding: 3rem 1.5rem 5rem 1.5rem;">
+        
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-icon-badge">🙏</div>
+                <h1 style="font-family: var(--font-heading); color: var(--primary-red-dark); font-size: 1.85rem; margin-bottom: 0.35rem;">Welcome to Karnataka</h1>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to save your favorite destinations, reviews, and custom trip itineraries.</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tab-login-btn">Sign In</button>
+                <button class="auth-tab-btn" id="tab-register-btn">Create Account</button>
+            </div>
+
+            <!-- Alert Box -->
+            <div id="auth-alert" class="auth-alert" style="display: none;"></div>
+
+            <!-- 1-Click Quick Demo Login Button -->
+            <div class="demo-login-box">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-amber); text-transform: uppercase;">⚡ Quick Examiner Demo</span>
+                <button type="button" id="btn-quick-demo" class="btn btn-secondary" style="width: 100%; margin-top: 0.4rem; padding: 0.6rem; font-size: 0.85rem; color: #451a03; border-color: var(--accent-gold); background: #FFF8E7;">
+                    ⚡ 1-Click Login as Dhanush (dhanush@gmail.com)
+                </button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="form-login" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" class="form-input" placeholder="name@example.com" required value="dhanush@gmail.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required value="Karnataka@123">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-size: 1rem; margin-top: 0.5rem;">
+                    Sign In to Portal →
+                </button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="form-register" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label for="reg-name">Full Name</label>
+                    <input type="text" id="reg-name" class="form-input" placeholder="e.g., Alex Turner" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" class="form-input" placeholder="name@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" class="form-input" placeholder="At least 6 characters" minlength="6" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-size: 1rem; margin-top: 0.5rem;">
+                    Create Free Account →
+                </button>
+            </form>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Namaste Karnataka</h3>
+                <p>An interactive digital showcase dedicated to the history, architecture, biodiversity, cuisines, and timeless performing arts of Karnataka, India.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Navigation</h4>
+                <ul>
+                    <li><a href="index.html">🏠 Home Page</a></li>
+                    <li><a href="places.html">🏛️ 47+ Historical Places</a></li>
+                    <li><a href="foods.html">🍲 Traditional Cuisines</a></li>
+                    <li><a href="culture.html">🎭 Folk Culture & Arts</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Namaste Karnataka Cultural Project. Author: Dhanush.</div>
+            <div>One State, Many Worlds • ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ</div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabLogin = document.getElementById('tab-login-btn');
+            const tabRegister = document.getElementById('tab-register-btn');
+            const formLogin = document.getElementById('form-login');
+            const formRegister = document.getElementById('form-register');
+            const alertBox = document.getElementById('auth-alert');
+            const quickDemoBtn = document.getElementById('btn-quick-demo');
+
+            function showAlert(msg, isSuccess = false) {
+                alertBox.textContent = msg;
+                alertBox.className = isSuccess ? 'auth-alert auth-alert-success' : 'auth-alert auth-alert-error';
+                alertBox.style.display = 'block';
+            }
+
+            tabLogin.addEventListener('click', () => {
+                tabLogin.classList.add('active');
+                tabRegister.classList.remove('active');
+                formLogin.style.display = 'block';
+                formRegister.style.display = 'none';
+                alertBox.style.display = 'none';
+            });
+
+            tabRegister.addEventListener('click', () => {
+                tabRegister.classList.add('active');
+                tabLogin.classList.remove('active');
+                formLogin.style.display = 'none';
+                formRegister.style.display = 'block';
+                alertBox.style.display = 'none';
+            });
+
+            // 1-Click Demo
+            quickDemoBtn.addEventListener('click', async () => {
+                showAlert('Logging in as Dhanush...', true);
+                const res = await window.NamasteAuth.login('dhanush@gmail.com', 'Karnataka@123');
+                if (res.success) {
+                    showAlert(res.message, true);
+                    setTimeout(() => { window.location.href = 'index.html'; }, 800);
+                } else {
+                    showAlert(res.message);
+                }
+            });
+
+            // Login submit
+            formLogin.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const pass = document.getElementById('login-password').value;
+                const res = await window.NamasteAuth.login(email, pass);
+                if (res.success) {
+                    showAlert(res.message, true);
+                    setTimeout(() => { window.location.href = 'index.html'; }, 800);
+                } else {
+                    showAlert(res.message);
+                }
+            });
+
+            // Register submit
+            formRegister.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('reg-name').value;
+                const email = document.getElementById('reg-email').value;
+                const pass = document.getElementById('reg-password').value;
+                const res = await window.NamasteAuth.register(name, email, pass);
+                if (res.success) {
+                    showAlert(res.message, true);
+                    setTimeout(() => { window.location.href = 'index.html'; }, 800);
+                } else {
+                    showAlert(res.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

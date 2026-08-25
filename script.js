@@ -565,9 +565,42 @@ document.addEventListener('DOMContentLoaded', () => {
             renderList(placesContainer, filtered, 'places', countDisplay);
         }
 
+        const btnSearch = document.getElementById('btn-search-places');
+        const btnClear = document.getElementById('btn-clear-places');
+
+        function updateClearBtnVisibility() {
+            if (btnClear) {
+                btnClear.style.display = searchInput && searchInput.value.trim() ? 'block' : 'none';
+            }
+        }
+
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 currentQuery = e.target.value;
+                updateClearBtnVisibility();
+                applyPlacesFilter();
+            });
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    currentQuery = searchInput.value;
+                    applyPlacesFilter();
+                }
+            });
+        }
+
+        if (btnSearch) {
+            btnSearch.addEventListener('click', () => {
+                currentQuery = searchInput ? searchInput.value : '';
+                applyPlacesFilter();
+            });
+        }
+
+        if (btnClear) {
+            btnClear.addEventListener('click', () => {
+                if (searchInput) searchInput.value = '';
+                currentQuery = '';
+                updateClearBtnVisibility();
                 applyPlacesFilter();
             });
         }
@@ -605,9 +638,42 @@ document.addEventListener('DOMContentLoaded', () => {
             renderList(foodsContainer, filtered, 'foods', foodCountDisplay);
         }
 
+        const btnSearchFoods = document.getElementById('btn-search-foods');
+        const btnClearFoods = document.getElementById('btn-clear-foods');
+
+        function updateClearFoodsVisibility() {
+            if (btnClearFoods) {
+                btnClearFoods.style.display = foodSearchInput && foodSearchInput.value.trim() ? 'block' : 'none';
+            }
+        }
+
         if (foodSearchInput) {
             foodSearchInput.addEventListener('input', (e) => {
                 currentFoodQuery = e.target.value;
+                updateClearFoodsVisibility();
+                applyFoodsFilter();
+            });
+            foodSearchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    currentFoodQuery = foodSearchInput.value;
+                    applyFoodsFilter();
+                }
+            });
+        }
+
+        if (btnSearchFoods) {
+            btnSearchFoods.addEventListener('click', () => {
+                currentFoodQuery = foodSearchInput ? foodSearchInput.value : '';
+                applyFoodsFilter();
+            });
+        }
+
+        if (btnClearFoods) {
+            btnClearFoods.addEventListener('click', () => {
+                if (foodSearchInput) foodSearchInput.value = '';
+                currentFoodQuery = '';
+                updateClearFoodsVisibility();
                 applyFoodsFilter();
             });
         }
@@ -645,9 +711,42 @@ document.addEventListener('DOMContentLoaded', () => {
             renderList(cultureContainer, filtered, 'culture', cultureCountDisplay);
         }
 
+        const btnSearchCulture = document.getElementById('btn-search-culture');
+        const btnClearCulture = document.getElementById('btn-clear-culture');
+
+        function updateClearCultureVisibility() {
+            if (btnClearCulture) {
+                btnClearCulture.style.display = cultureSearchInput && cultureSearchInput.value.trim() ? 'block' : 'none';
+            }
+        }
+
         if (cultureSearchInput) {
             cultureSearchInput.addEventListener('input', (e) => {
                 currentCultQuery = e.target.value;
+                updateClearCultureVisibility();
+                applyCultureFilter();
+            });
+            cultureSearchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    currentCultQuery = cultureSearchInput.value;
+                    applyCultureFilter();
+                }
+            });
+        }
+
+        if (btnSearchCulture) {
+            btnSearchCulture.addEventListener('click', () => {
+                currentCultQuery = cultureSearchInput ? cultureSearchInput.value : '';
+                applyCultureFilter();
+            });
+        }
+
+        if (btnClearCulture) {
+            btnClearCulture.addEventListener('click', () => {
+                if (cultureSearchInput) cultureSearchInput.value = '';
+                currentCultQuery = '';
+                updateClearCultureVisibility();
                 applyCultureFilter();
             });
         }

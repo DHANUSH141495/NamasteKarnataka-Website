@@ -22,6 +22,7 @@
             </a>
             <div class="header-actions">
                 <span class="state-motto">🏛️ One State • Many Worlds</span>
+                <a href="login.html" class="btn-login-nav">🔑 Login / Sign Up</a>
             </div>
         </div>
 
@@ -143,12 +144,22 @@
 
     </main>
 
-    <!-- Plan Trip Contact CTA -->
+    <!-- Plan Trip Contact CTA (Backed by SQLite Database) -->
     <section id="contact" class="contact-section">
         <div class="contact-box">
             <h2 style="font-family: var(--font-heading); font-size: 2rem; color: var(--primary-red-dark); margin-bottom: 0.75rem;">Plan Your Karnataka Tour</h2>
             <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Ready for an unforgettable adventure across Karnataka's royal palaces, wildlife sanctuaries, and beaches? Reach out for customized heritage itineraries.</p>
-            <a href="mailto:info@karnatakatourism.com" class="btn btn-primary" style="padding: 0.85rem 2rem;">✉️ Get in Touch</a>
+            
+            <form id="contact-form" style="display: flex; flex-direction: column; gap: 0.85rem; max-width: 480px; margin: 0 auto; text-align: left;">
+                <input type="text" name="name" class="form-input" placeholder="Your Name *" required>
+                <input type="email" name="email" class="form-input" placeholder="Your Email Address *" required>
+                <input type="tel" name="phone" class="form-input" placeholder="Phone Number (optional)">
+                <input type="text" name="destination" class="form-input" placeholder="Interested Destination (e.g. Hampi, Coorg, Gokarna)">
+                <textarea name="message" class="form-input" rows="3" placeholder="Tell us about your trip plans *" required></textarea>
+                <button type="submit" class="btn btn-primary" style="padding: 0.85rem 2rem; width: 100%;">
+                    ✉️ Submit Trip Inquiry (Save to Database)
+                </button>
+            </form>
         </div>
     </section>
 
@@ -158,9 +169,6 @@
             <div class="footer-brand">
                 <h3>Namaste Karnataka</h3>
                 <p>An interactive digital showcase dedicated to the history, architecture, biodiversity, cuisines, and timeless performing arts of Karnataka, India.</p>
-                <div style="margin-top: 1rem; color: var(--accent-gold); font-size: 0.85rem;">
-                    📍 Karnataka Tourism & Cultural Showcase Project
-                </div>
             </div>
             <div class="footer-links">
                 <h4>Quick Navigation</h4>
@@ -169,24 +177,17 @@
                     <li><a href="places.html">🏛️ 47+ Historical Places</a></li>
                     <li><a href="foods.html">🍲 Traditional Cuisines</a></li>
                     <li><a href="culture.html">🎭 Folk Culture & Arts</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Famous Circuits</h4>
-                <ul>
-                    <li><a href="places.html">Hampi & Badami Heritage Circuit</a></li>
-                    <li><a href="places.html">Mysore & Kodagu Royal Trail</a></li>
-                    <li><a href="places.html">Gokarna & Karavali Coastline</a></li>
-                    <li><a href="places.html">Western Ghats Rainforest & Coffee</a></li>
+                    <li><a href="login.html">🔑 User Login / Register</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <div>© 2026 Namaste Karnataka Cultural Project. All rights reserved. Author: Dhanush.</div>
+            <div>© 2026 Namaste Karnataka Cultural Project. Author: Dhanush.</div>
             <div>One State, Many Worlds • ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ</div>
         </div>
     </footer>
 
+    <script src="auth.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

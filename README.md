@@ -1,57 +1,64 @@
-﻿# 🚩 Namaste Karnataka (ನಮಸ್ತೆ ಕರ್ನಾಟಕ)
-### *A Digital Cultural Showcase & Interactive Tourism Portal for Karnataka*
+# 🚩 Namaste Karnataka (ನಮಸ್ತೆ ಕರ್ನಾಟಕ)
+### *A Full-Stack Digital Cultural Showcase & Tourism Platform for Karnataka*
 
 [![GitHub repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/DHANUSH141495/NamasteKarnataka-Website)
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript ES6](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![Responsive Design](https://img.shields.io/badge/Design-Responsive-success?style=for-the-badge)](https://en.wikipedia.org/wiki/Responsive_web_design)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
+[![Express.js](https://img.shields.io/badge/Express.js-Backend-black?style=for-the-badge&logo=express)](https://expressjs.com)
+[![SQLite3](https://img.shields.io/badge/SQLite3-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org)
+[![JWT Auth](https://img.shields.io/badge/Auth-JWT%20%2B%20Bcrypt-FF5722?style=for-the-badge)](https://jwt.io)
+[![HTML5 / CSS3 / ES6](https://img.shields.io/badge/Frontend-Vanilla%20HTML5%20%2B%20CSS3%20%2B%20ES6-F7DF1E?style=for-the-badge)](https://developer.mozilla.org)
 
 ---
 
 ## 📖 Overview
 
-**Namaste Karnataka** is an interactive, responsive web portal created to celebrate and promote the rich heritage, breathtaking tourism destinations, mouthwatering culinary diversity, and age-old cultural traditions of the South Indian state of **Karnataka (One State, Many Worlds)**.
+**Namaste Karnataka** is a full-stack, responsive web application and digital cultural chronicle created to celebrate the rich heritage, monumental tourism destinations, mouthwatering culinary diversity, and age-old folk traditions of **Karnataka (One State, Many Worlds)**.
 
-From the architectural wonders of **Hampi** and **Belur-Halebidu** to the serene coffee plantations of **Coorg**, pristine beaches of **Gokarna**, and royal celebrations of **Mysore Dasara**, this project provides a unified digital chronicle for travelers, students, and culture enthusiasts worldwide.
+The platform includes **user authentication (Login/Register)**, **SQLite relational database storage**, **user favorites/bookmarks sync**, **trip inquiry management**, and **interactive multi-category search engines with dedicated search triggers**.
 
 ---
 
-## ✨ Key Features
+## ✨ Core Features & Highlights
 
-### 🏛️ 1. Comprehensive Destination Explorer (`places.html`)
-- **47+ Curated Tourism Destinations**: Covers Bengaluru, Mysore, Coastal Karnataka (Karavali), Malnad, Central Karnataka, and North Karnataka heritage circuits (Badami, Aihole, Pattadakal, Gol Gumbaz).
-- **Instant Client-Side Search Engine**: Filter destinations in real-time by entering names, keywords (e.g., *"Bengaluru"*, *"Waterfalls"*, *"Temple"*, *"Coastal"*), or regions without reloading the page.
-- **Dynamic DOM Rendering**: Automatically creates interactive cards with responsive images, geographical regions, and detailed historical context.
+### 🔐 1. User Authentication & Profile Portal (`login.html`)
+- **JWT & Bcrypt Hashed Security**: Secure user registration and login with encrypted password storage.
+- **1-Click Quick Examiner Demo**: Instant demo login as **Dhanush** (`dhanush@gmail.com` / `Karnataka@123`).
+- **Dynamic Header State**: Automatically swaps between *"🔑 Login / Sign Up"* and active user avatar badge with *"🚪 Logout"*.
+- **Database Favorites Sync**: Logged-in users have their bookmarked places, dishes, and traditions synced to the SQLite database.
 
-### 🍲 2. Authentic Karnataka Culinary Atlas (`foods.html`)
-- **Regional Gastronomy Showcase**: Features iconic dishes from across Karnataka:
-  - **South Karnataka & Bengaluru**: *Bisi Bele Bath, Mysore Pak, Ragi Mudde, Thatte Idli, Maddur Vada*.
-  - **Karavali & Coastal**: *Neer Dosa, Mangalore Buns, Kori Rotti, Goli Baje, Fish Curry*.
-  - **North Karnataka**: *Jolada Rotti with Ennegayi (stuffed brinjal), Dharwad Peda, Belagavi Kunda, Shenga Chutney*.
-  - **Malnad**: *Akki Rotti, Bamboo Shoot Curry, Kaad Todu*.
-- **Interactive Food Search**: Find dishes by ingredients, tastes, or origins.
+### 🏛️ 2. Comprehensive Destination Explorer with Search Button (`places.html`)
+- **47+ Curated Tourism Destinations**: Covers Bengaluru, Mysuru, Coastal Karnataka (Karavali), Malnad, and North Karnataka (Hampi, Badami, Gol Gumbaz).
+- **Explicit Search & Clear Controls**: Includes dedicated **[🔍 Search Places]** and **[✖ Clear]** buttons alongside instant typing filter.
+- **Category Filter Pills**: Fast filtering across `UNESCO & Heritage`, `Coastal & Beaches`, `Nature & Hills`, `Sacred Temples`, `Wildlife Reserves`, and `Bengaluru`.
+- **Interactive Modals with Google Maps Navigation**: Direct *"📍 View on Google Maps"* links and detailed historical context for every destination.
 
-### 🎭 3. Living Cultural Heritage Chronicle (`culture.html`)
-- **Traditional Performing Arts**: Deep dives into *Yakshagana, Dollu Kunitha, Veeragase, Kamsale, Bhoota Kola*, and *Carnatic Classical Music*.
-- **Grand Festivals & Traditions**: Highlighting *Mysore Dasara (Jumboo Savari), Kambala (Buffalo race), Karaga Shaktyotsava, Hampi Utsava*, and *Ugadi*.
-- **Handicrafts & GI Tags**: *Channapatna Wooden Toys, Mysore Silk, Ilkal Sarees, Bidriware, Sandalwood Crafts*.
+### 🍲 3. Authentic Culinary Atlas with Search (`foods.html`)
+- **Filter Pills**: `🍚 Breakfast & Staples`, `🍬 Royal Sweets`, `🥥 Coastal & Karavali`, `🌾 North Karnataka`, `☕ Malnad & Coffee`.
+- **Interactive Deep Dive**: Ingredients, origin stories, and flavor profiles for *Bisi Bele Bath, Mysore Pak, Neer Dosa, Jolada Rotti, Mangalore Buns, Dharwad Peda, and Filter Kaapi*.
 
-### 📱 4. Sleek & Accessible User Experience
-- **Responsive Layout**: Designed to work smoothly on smartphones, tablets, laptops, and wide desktop displays.
-- **Pure Native Web Performance**: Zero external heavy libraries — fast load times powered by vanilla JavaScript and pure CSS3 styling.
+### 🎭 4. Living Culture & Performing Arts (`culture.html`)
+- **Filter Pills**: `🎭 Folk Dances & Theatre`, `🎉 Grand Festivals`, `🎨 Handicrafts & GI Tags`.
+- **In-Depth Cultural Chronicle**: Deep dives into *Yakshagana, Dollu Kunitha, Mysore Dasara, Kambala Buffalo Race, Channapatna Wooden Toys, and Veeragase*.
+
+### 📦 5. Relational SQLite Database & Backend API
+- Built with **Express.js** and **better-sqlite3** in high-performance Write-Ahead-Logging (WAL) mode.
+- Tables:
+  - `users`: User accounts, emails, bcrypt password hashes, avatars, and timestamps.
+  - `user_favorites`: Relational user bookmarks linked to destination IDs.
+  - `trip_inquiries`: User tour planning inquiries and contact form submissions.
+  - `reviews`: User reviews and star ratings.
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Component | Technology | Purpose |
+| Layer | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Structure** | Semantic HTML5 | Clean accessibility and SEO-friendly document hierarchy |
-| **Styling** | Vanilla CSS3 (Grid & Flexbox) | Modern typography, card layouts, hover effects, and responsive breakpoints |
-| **Logic & Engine** | Vanilla JavaScript (ES6+) | Real-time filtering, dynamic list generation, event listeners, and search indexing |
-| **Data Layer** | JS Object Data Store + CSV | Pre-indexed 47+ destinations, foods, and cultural elements |
-| **Asset Utilities** | Python 3 (`download_images.py`) | Automated image asset download and resolution manager |
+| **Frontend** | HTML5, CSS3, ES6+ JavaScript | Responsive layout, modal system, dynamic card rendering |
+| **Styling** | Vanilla CSS3 (Grid & Flexbox) | Crimson/Saffron heritage design system, Google Fonts |
+| **Backend** | Node.js & Express.js | REST API endpoints, JWT auth middleware, static serving |
+| **Database** | SQLite 3 (`better-sqlite3`) | Relational persistence for users, favorites, and inquiries |
+| **Security** | `bcryptjs` & `jsonwebtoken` | Salted password hashing and secure token generation |
 
 ---
 
@@ -59,18 +66,22 @@ From the architectural wonders of **Hampi** and **Belur-Halebidu** to the serene
 
 ```
 NamasteKarnataka-Website/
-├── index.html                   # Homepage: Hero section, overview, and quick exploration links
-├── places.html                  # Destination catalog with live search filter
+├── server.js                    # Express.js REST API server with SQLite integration
+├── auth.js                      # Client authentication & session manager
+├── script.js                    # Dynamic datasets (47+ items) & multi-filter search engine
+├── style.css                    # Master stylesheet (theme colors, cards, modals, auth)
+├── index.html                   # Homepage: Hero banner, stats counter, categories, trivia
+├── places.html                  # Destination catalog with search button & category pills
 ├── foods.html                   # Traditional dishes and regional cuisines explorer
 ├── culture.html                 # Folk arts, dances, festivals, and handicrafts guide
-├── script.js                    # Core JavaScript logic & full structured dataset (47+ items)
-├── style.css                    # Master stylesheet (theme colors, grid cards, navigation)
-├── karnataka_places_images.csv  # Metadata table linking places with coordinates & image sources
-├── download_images.py           # Optional Python script to automate image caching
-├── place-images/                # Directory containing destination photography
-├── food-images/                 # Directory containing culinary photography
-├── culture-images/              # Directory containing performing arts & festival images
-├── mysore-night.jpg             # High-res hero banner image of illuminated Mysore Palace
+├── login.html                   # Dedicated user Login and Registration portal
+├── test_backend.js              # Automated backend & database test suite
+├── package.json                 # Node dependencies and npm scripts
+├── database.sqlite              # Relational SQLite database file
+├── place-images/                # Destination photography
+├── food-images/                 # Culinary photography
+├── culture-images/              # Folk arts and festival images
+├── mysore-night.jpg             # Hero banner image of illuminated Mysore Palace
 └── README.md                    # Project documentation & setup instructions
 ```
 
@@ -78,37 +89,29 @@ NamasteKarnataka-Website/
 
 ## 🚀 Quick Start Guide
 
-You can run this project locally on your machine in seconds without any complex configuration:
-
-### Option 1: Direct File Launch
-1. Clone or download this repository:
-   ```bash
-   git clone https://github.com/DHANUSH141495/NamasteKarnataka-Website.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd NamasteKarnataka-Website
-   ```
-3. Double-click **`index.html`** or open it in any web browser (Chrome, Edge, Firefox, Safari).
-
-### Option 2: Live Server (VS Code)
-1. Open the folder in **Visual Studio Code**.
-2. Right-click `index.html` and click **"Open with Live Server"**.
-3. The website will launch automatically at `http://127.0.0.1:5500`.
-
-### Option 3: Python Built-in Server
+### Step 1: Install Dependencies
 ```bash
-python -m http.server 8000
+npm install
 ```
-Open your browser and visit: `http://localhost:8000`
+
+### Step 2: Start the Backend & Database Server
+```bash
+npm start
+```
+*Server will launch on **`http://localhost:5050`** with SQLite database automatically initialized.*
+
+### Step 3: Run Backend Tests
+```bash
+npm test
+```
 
 ---
 
-## 🗺️ Roadmap & Future Enhancements
-- [ ] 🗣️ **Bilingual Toggle**: Add complete Kannada language localization (`ಕನ್ನಡ / English`).
-- [ ] 📍 **Interactive Map Integration**: Leaflet.js / Google Maps GPS markers for every destination.
-- [ ] 🎧 **Audio Pronunciation & Heritage Stories**: Integrated native audio narrations for historical monuments.
-- [ ] 🕶️ **Virtual 360° Panorama Views**: Interactive 360 tours for UNESCO World Heritage Sites (Hampi, Pattadakal, Hoysala Temples of Belur & Halebidu).
+## 🔑 Demo Login Credentials
+
+- **Email**: `dhanush@gmail.com`
+- **Password**: `Karnataka@123`
+*(Or click **"⚡ 1-Click Login as Dhanush"** on `login.html`)*
 
 ---
 
@@ -122,4 +125,4 @@ Open your browser and visit: `http://localhost:8000`
 
 ## 📄 License
 
-This project is open-source and available under the **MIT License**. Contributions and suggestions are always welcome!
+This project is open-source and available under the **MIT License**.
