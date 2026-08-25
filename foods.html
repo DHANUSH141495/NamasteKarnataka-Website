@@ -32,45 +32,17 @@
     <section id="foods" class="food-staples">
         <div class="food-content">
             <h2>The Culinary Staples of Karnataka</h2>
-            <p class="intro-text">Karnataka's cuisine is as diverse as its geography, with different regions relying on unique staple ingredients, resulting in vibrant and distinct culinary traditions.</p>
+            <p class="intro-text">Explore 55+ diverse cuisines of Karnataka by searching for a dish, region (e.g., North, Coastal), or category (e.g., Dessert, Non-Veg).</p>
             
-            <div class="food-list">
-                
-                <div class="food-item">
-                    <div class="food-text">
-                        <h3>🍚 Coastal Karnataka: Rice and Fish</h3>
-                        <p>The coastal regions (Mangaluru, Udupi) heavily rely on <strong>Rice</strong>. It is often consumed in various forms, including boiled rice, <strong>Neer Dosa</strong>, and <strong>Idli</strong>. Fish curry is a primary accompaniment, alongside coconut-based vegetable curries and spicy relishes.</p>
-                    </div>
-                    <img src="food-images/coastal_staple.jpg" alt="Coastal Fish Curry and Rice" class="food-image">
-                </div>
-
-                <div class="food-item">
-                    <div class="food-text">
-                        <h3>🌾 South Karnataka: Ragi Mudde</h3>
-                        <p>In the southern plains, particularly the Old Mysore region,kolar,chikkaballapura <strong>Ragi (Finger Millet)</strong> is the foundation of the diet. The most iconic dish is <strong>Ragi Mudde</strong>, a dense ball of cooked millet flour, typically consumed by swallowing small portions with savory, highly seasoned lentil curries (<em>Saru</em>).</p>
-                    </div>
-                    <img src="food-images/south-karnataka.jpg" alt="Ragi Mudde" class="food-image">
-                </div>
-
-                <div class="food-item">
-                    <div class="food-text">
-                        <h3>🍞 North Karnataka: Jowar/Jolada Rotti</h3>
-                        <p>The dry northern plains (Hubli, Dharwad, Gulbarga) feature <strong>Jowar (Sorghum)</strong> and <strong>Bajra (Pearl Millet)</strong>. The staple food here is <strong>Jolada Rotti</strong>, a large, unleavened flatbread. It is eaten with spicy curries, <em>Palya</em> (dry vegetable side dishes), and various chutneys.</p>
-                    </div>
-                    <img src="food-images/north-karnataka.jpg" alt="Jolada Rotti Thali" class="food-image">
-                </div>
-                
-                <h2 class="food-sub-heading">Modern & Iconic: The Bengaluru Breakfast</h2>
-
-                <div class="food-item">
-                    <div class="food-text">
-                        <h3>🧈 The Rameshwaram Cafe Dosa</h3>
-                        <p>This is a modern <strong>Bengaluru institution</strong>, famous for its buttery, crisp, and high-quality South Indian breakfast items. Their signature <strong>dosas</strong> are loaded with <strong>ghee</strong> and served with piping hot sambar and chutneys. It represents the contemporary, fast-paced culinary culture that has made <strong>Bengaluru</strong> the breakfast capital of India.</p>
-                    </div>
-                    <img src="food-images/rameshwaram.jpg" alt="Rameshwaram Cafe Ghee Roast Dosa" class="food-image">
-                </div>
-
+            <div class="search-controls">
+                <form id="food-search-form" class="search-form">
+                    <input type="text" id="food-search-input" placeholder="Search for food items, regions (e.g., Coorg), or categories (e.g., Dessert)...">
+                    <button type="submit" class="btn search-btn">Search</button>
+                </form>
             </div>
+            <div id="food-destination-container" class="food-list-grid">
+                </div>
+            
         </div>
     </section>
 
@@ -84,5 +56,6 @@
         <p>&copy; 2025 Namaste Karnaaka Cultural Project</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
