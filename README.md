@@ -22,7 +22,7 @@ The platform includes **user authentication (Login/Register)**, **SQLite relatio
 
 ### 🔐 1. User Authentication & Profile Portal (`login.html`)
 - **JWT & Bcrypt Hashed Security**: Secure user registration and login with encrypted password storage.
-- **1-Click Quick Examiner Demo**: Instant demo login as **Dhanush** (`dhanush@gmail.com` / `Karnataka@123`).
+- **⚡ 1-Click Quick Examiner Demo**: Instant demo login as **Dhanush** (`dhanush@gmail.com` / `Karnataka@123`).
 - **Dynamic Header State**: Automatically swaps between *"🔑 Login / Sign Up"* and active user avatar badge with *"🚪 Logout"*.
 - **Database Favorites Sync**: Logged-in users have their bookmarked places, dishes, and traditions synced to the SQLite database.
 
@@ -42,7 +42,7 @@ The platform includes **user authentication (Login/Register)**, **SQLite relatio
 
 ### 📦 5. Relational SQLite Database & Backend API
 - Built with **Express.js** and **better-sqlite3** in high-performance Write-Ahead-Logging (WAL) mode.
-- Tables:
+- **Database Tables**:
   - `users`: User accounts, emails, bcrypt password hashes, avatars, and timestamps.
   - `user_favorites`: Relational user bookmarks linked to destination IDs.
   - `trip_inquiries`: User tour planning inquiries and contact form submissions.
